@@ -72,7 +72,50 @@ def sequence():
     print(ch_avg, nch_avg)
     print(f'{BLUE}{" " * round(ch_avg*5)}{RESET} {ch_avg / (ch_avg+nch_avg) * 100}%')
     print(f'{RED}{" " * round(nch_avg*5)}{RESET} {nch_avg / (ch_avg+nch_avg) * 100}%')
+
+
+def function():
+    text = [['' for _ in range(11)] for _ in range(11)]
+    for y in range(11):
+        for x in range(11):
+            if x == 0:
+                if y <=8:
+                    text[y][x] = str(9-y)+' '
+                elif y == 10:
+                    text[y][x]='0  '
+                else:
+                    text[y][x] = '  '
+            elif x == 1:
+                if y == 0:
+                    text[y][x]='↑'
+                elif y <= 8:
+                    text[y][x]='|'
+                elif y == 9:
+                    text[y][x]='∟'
+                else:
+                    text[y][x]=' '
+            else:
+                if y<=8:
+                    true_x = x-1
+                    true_y = 9-y
+                    if true_y== abs(true_x):
+                        text[y][x]=RED+'   '+RESET
+                    else:
+                        text[y][x]=WHITE+'   '+RESET
+                    #f=|x|
+                elif y == 9:
+                    if x == 10:
+                        text[y][x] = '--→'
+                    else:
+                        text[y][x]='---'
+                else:
+                    text[y][x]=str(x-1)+'  '
+
+    for i in text:
+        print(''.join(i))
+
 #flag()
 #uzor()
-anim()
+#anim()
 #sequence()
+function()
