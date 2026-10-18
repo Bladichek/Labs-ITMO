@@ -65,7 +65,7 @@ def task4():
     nodes=dom.getElementsByTagName('Value')
     for node in nodes:
         values.append(node.firstChild.data)
-
+    xml_file.close()
     print(char_cods)
     print(values)
 
