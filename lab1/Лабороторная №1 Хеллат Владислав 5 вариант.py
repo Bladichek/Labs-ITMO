@@ -117,5 +117,5 @@ def function():
 #flag()
 #uzor()
 #anim()
-#sequence()
-function()
+sequence()
+#function()
