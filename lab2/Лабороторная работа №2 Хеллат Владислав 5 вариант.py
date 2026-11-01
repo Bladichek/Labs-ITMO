@@ -1,5 +1,7 @@
 from csv import reader
 import xml.dom.minidom as minidom
+
+
 #ID;Название;Тип;Автор;Автор (ФИО);Возрастное ограничение на книгу;Дата поступления;Цена поступления;Кол-во выдач;Дата списания книги;Инвентарный номер;Выдана до;Жанр книги
 def open_table(filename='books.csv'):
     try:
@@ -80,11 +82,17 @@ def task5():
 
 def task6():
     table=open_table()
-    books=[]
+    books=set()
     for row in table:
-        if [row[1], int(row[8])] not in books:
-            books.append([row[1], int(row[8])])
+        if (row[1], int(row[8])) not in books:
+            books.add((row[1], int(row[8])))
+    books=list(books)
     books.sort(key=lambda x: -x[1])
     for n,i in enumerate(books[:20], start=1):
         print(f'{n}. {i[0]} - {i[1]} выдач')
-task6()
+#task1()
+#task2()
+#task3()
+#task4()
+task5()
+#task6()
