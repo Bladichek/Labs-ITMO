@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import messagebox
 from threading import Thread
 from playsound import playsound
+from PIL import  Image, ImageSequence, ImageTk
 
 def music():
     while True:
@@ -12,7 +13,7 @@ Thread(target=music, daemon=True).start()
 
 
 
-from PIL import  Image, ImageSequence, ImageTk
+
 
 def keygen(block1: str):
     if len(block1)!= 5 or block1.isalpha() == False:
@@ -70,24 +71,25 @@ im = Image.open('sans.gif')
 
 frames = []
 durations = []
-while True:
-
-    for frame in ImageSequence.Iterator(im):
-        frame_rgba = frame.convert('RGBA')
-        orig_w, orig_h = im.size
-        scale=0.5
-        resized = frame_rgba.resize((int(orig_w*scale), int(orig_h*scale)))
-        frames.append(ImageTk.PhotoImage(resized))
-
-        durations.append(frame.info['duration'])
-    break
 
 
+for frame in ImageSequence.Iterator(im):
+    frame_rgba = frame.convert('RGBA')
+    orig_w, orig_h = im.size
+    scale=0.5
+    resized = frame_rgba.resize((int(orig_w*scale), int(orig_h*scale)))
+    frames.append(ImageTk.PhotoImage(resized))
 
-def animation(current_frame=0):
-    gif_label.configure(image=frames[current_frame])
-    next_frame = (current_frame + 1) % len(frames)
-    window.after(durations[current_frame], lambda: animation(next_frame))
+    durations.append(frame.info['duration'])
+
+
+
+cur_frame=0
+def animation():
+    global cur_frame
+    gif_label.configure(image=frames[cur_frame])
+    cur_frame = (cur_frame + 1) % len(frames)
+    window.after(durations[cur_frame], animation)
 
 
 
